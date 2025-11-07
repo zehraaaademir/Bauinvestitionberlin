@@ -1,0 +1,208 @@
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.enum.text import PP_ALIGN
+from pptx.dml.color import RGBColor
+from datetime import datetime
+
+def create_berlin_construction_presentation():
+    # Präsentation erstellen
+    prs = Presentation()
+    
+    # Titel-Folie
+    slide_layout = prs.slide_layouts[0]  # Titel-Layout
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    subtitle = slide.placeholders[1]
+    
+    title.text = "Baupotential in Berlin"
+    subtitle.text = f"Analyse und Prognose\n{datetime.now().strftime('%d.%m.%Y')}"
+    
+    # Agenda
+    slide_layout = prs.slide_layouts[1]  # Titel und Inhalt
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Agenda"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = "• Einführung und Gesamtpotenzial\n• Wohnungsbau\n• Infrastrukturprojekte\n• Verkehrsinfrastruktur\n• Soziale Infrastruktur\n• Großprojekte\n• Herausforderungen\n• Fazit"
+    
+    # Gesamtpotenzial
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Gesamtpotenzial Berlin"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = "Kernaussagen:\n\n• Bis 2030 benötigt: 200.000+ neue Wohnungen\n• Aktuelle Baurate: ~15.000 Wohnungen/Jahr\n• Erforderliche Baurate: 20.000 Wohnungen/Jahr\n• Investitionsvolumen: Mehrere Milliarden Euro\n• Zeitrahmen: Bis 2040+"
+    
+    # Wohnungsbau - detailliert
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Wohnungsbau-Potenzial"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = ("Quellen: STEP Wohnen 2030, Senatsverwaltung\n\n"
+               "Flächenpotenziale:\n"
+               "• Nachverdichtung: 40-60.000 Wohnungen\n"
+               "• Brachflächen: 30-50.000 Wohnungen\n"
+               "• Neue Quartiere: 60-80.000 Wohnungen\n"
+               "• Aufstockungen: 10-20.000 Wohnungen\n\n"
+               "Wachstumsorte:\n"
+               "• Tegel (Schumacher Quartier)\n"
+               "• Östliche Europastadt\n"
+               "• Mitte Alt-Moabit")
+    
+    # Tabelle mit Projekten
+    slide_layout = prs.slide_layouts[1]
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Großprojekte im Überblick"
+    
+    # Tabelle erstellen
+    rows, cols = 4, 3
+    left = Inches(1.0)
+    top = Inches(1.5)
+    width = Inches(8.0)
+    height = Inches(4.0)
+    
+    table = slide.shapes.add_table(rows, cols, left, top, width, height).table
+    
+    # Tabellenüberschriften
+    table.cell(0, 0).text = "Projekt"
+    table.cell(0, 1).text = "Wohnungen"
+    table.cell(0, 2).text = "Zeitraum"
+    
+    # Tabellendaten
+    projects = [
+        ("Tegel Schumacher Quartier", "5.000+", "2025-2035"),
+        ("Östliche Europastadt", "4.000+", "2024-2030"),
+        ("Urban Tech Republic", "2.500+", "2025-2035")
+    ]
+    
+    for i, (proj, units, timeframe) in enumerate(projects, 1):
+        table.cell(i, 0).text = proj
+        table.cell(i, 1).text = units
+        table.cell(i, 2).text = timeframe
+    
+    # Verkehrsinfrastruktur
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Verkehrsinfrastruktur"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = ("i2030-Programm - Schienenausbau:\n\n"
+               "• Ausbau S-Bahn-Ring\n"
+               "• Neue Regionalbahnstrecken\n"
+               "• Digitalisierung des Bahnbetriebs\n"
+               "• Verknüpfung Berlin-Brandenburg\n\n"
+               "Straßeninfrastruktur:\n"
+               "• Sanierung von 120+ Brücken\n"
+               "• Ausbau A100\n"
+               "• Radschnellwege")
+    
+    # Soziale Infrastruktur
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Soziale Infrastruktur"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = ("Berliner Schulbauoffensive:\n\n"
+               "• 60 Schulen in Neubau/Sanierung\n"
+               "• Investition: 6,5 Mrd. Euro\n"
+               "• Zeitraum: bis 2035\n\n"
+               "Weitere Projekte:\n"
+               "• Kitas und Kindergärten\n"
+               "• Sportstätten\n"
+               "• Gesundheitszentren")
+    
+    # Herausforderungen
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Herausforderungen"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = ("Limitierende Faktoren:\n\n"
+               "• Fachkräftemangel (10.000+ fehlende Handwerker)\n"
+               "• Hohe Baukosten und Materialpreise\n"
+               "• Lange Genehmigungsverfahren\n"
+               "• Flächenkonkurrenz und Naturschutz\n"
+               "• Lieferkettenprobleme\n"
+               "• Finanzierungsengpässe")
+    
+    # Fazit
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Fazit und Ausblick"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = ("Zusammenfassung:\n\n"
+               "• Berlin bleibt bis 2040+ eine \"Dauerbaustelle\"\n"
+               "• Potenzial ist theoretisch nahezu unbegrenzt\n"
+               "• Erfolg hängt von Umsetzungskapazitäten ab\n"
+               "• Integrierte Planung erforderlich\n"
+               "• Chance für nachhaltige Stadtentwicklung")
+    
+    # Quellen
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    title.text = "Quellen"
+    
+    content = slide.placeholders[1]
+    tf = content.text_frame
+    tf.text = ("Offizielle Quellen:\n\n"
+               "• Senatsverwaltung für Stadtentwicklung: STEP Wohnen 2030\n"
+               "• Berliner Wohnungsbauprogramm\n"
+               "• i2030-Projekt (DB, Berlin, Brandenburg)\n"
+               "• Berliner Schulbauoffensive\n"
+               "• Amt für Statistik Berlin-Brandenburg\n\n"
+               "Wissenschaftliche Institute:\n"
+               "• Deutsches Institut für Urbanistik (DIFU)\n"
+               "• Leibniz-Institut für Raumbezogene Sozialforschung (IRS)")
+    
+    # Präsentation speichern
+    filename = f"Baupotential_Berlin_{datetime.now().strftime('%Y%m%d')}.pptx"
+    prs.save(filename)
+    print(f"Präsentation wurde erstellt: {filename}")
+    return filename
+
+# Zusätzliche Funktion für eine visuell ansprechendere Version
+def create_enhanced_presentation():
+    prs = Presentation()
+    
+    # Titel-Folie mit Design
+    slide_layout = prs.slide_layouts[0]
+    slide = prs.slides.add_slide(slide_layout)
+    title = slide.shapes.title
+    subtitle = slide.placeholders[1]
+    
+    title.text = "🏗️ Baupotential in Berlin"
+    subtitle.text = f"Umfassende Analyse bis 2030+\n{datetime.now().strftime('%d.%m.%Y')}"
+    
+    # Weitere Folien hier ähnlich wie oben, aber mit Emojis und besserer Formatierung
+    # ... (kann nach Bedarf erweitert werden)
+    
+    filename = f"Baupotential_Berlin_Enhanced_{datetime.now().strftime('%Y%m%d')}.pptx"
+    prs.save(filename)
+    return filename
+
+if __name__ == "__main__":
+    try:
+        # Einfache Version erstellen
+        presentation_file = create_berlin_construction_presentation()
+        print("✅ Präsentation erfolgreich generiert!")
+        print(f"📁 Dateiname: {presentation_file}")
+        print("\nDie Präsentation enthält:")
+        print("- 10 Folien mit umfassender Analyse")
+        print("- Daten basierend auf offiziellen Quellen")
+        print("- Tabellen und strukturierte Informationen")
+        
+    except Exception as e:
+        print(f"❌ Fehler beim Erstellen der Präsentation: {e}")
+        print("Stellen Sie sicher, dass die python-pptx Bibliothek installiert ist:")
+        print("pip install python-pptx")
